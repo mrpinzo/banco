@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class mainScript : MonoBehaviour
 {
@@ -29,6 +28,12 @@ public class mainScript : MonoBehaviour
     public GameObject icon, icon_start, icon_end;
 
     private Camera cam_main;
+
+    internal void onGo(int x_start, int y_start, int x_end, int y_end)
+    {
+
+    }
+
     private List<singleBox> listBox;
     private List<singleBox> listStep;
     private singleBox[] point;
@@ -149,7 +154,7 @@ public class mainScript : MonoBehaviour
         point[1] = new singleBox(box);
         Debug.Log("end point: " + point[1].start);
         fillIcon(box, icon_end);
-        StartCoroutine(FindWays());
+        var x = StartCoroutine(FindWays());
         isfind = true;
     }
 
@@ -167,7 +172,7 @@ public class mainScript : MonoBehaviour
             foreach (var e in listnode[listnode.Count - 1])
             {
                 var list_point = GetListBox(e.data.start, point[1].start);
-                int value = list_point.Count > 2 ? 2 : list_point.Count;
+                int value = list_point.Count;// > 2 ? 2 : list_point.Count;
                 for (int i = 0; i < value; i++)
                 {
                     Node data = new Node() { data = list_point[i], Prev = e, index = index };
@@ -319,9 +324,9 @@ public class mainScript : MonoBehaviour
 
     private void RemakeList(List<Node> list)
     {
-        for(int i = 0; i < list.Count-1; i++)
+        for (int i = 0; i < list.Count - 1; i++)
         {
-            for(int  j = i+1;j< list.Count; j++)
+            for (int j = i + 1; j < list.Count; j++)
             {
                 if (list[i].data.Equals(list[j].data))
                 {
@@ -333,7 +338,7 @@ public class mainScript : MonoBehaviour
 
     private Node CheckEnd(List<Node> list)
     {
-            return list.Find(e=>e.data.start.Equals(point[1].start));
+        return list.Find(e => e.data.start.Equals(point[1].start));
     }
 }
 
