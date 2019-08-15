@@ -260,10 +260,7 @@ public class mainScript : MonoBehaviour
         {
             return false;
         }
-        //return true;
-        var c = Vector3.Distance(s, e);
-        if (c == 0) return true;
-        return c >= 2;
+        return true;
     }
 
     private void Sort(List<singleBox> result, Vector3 e)
